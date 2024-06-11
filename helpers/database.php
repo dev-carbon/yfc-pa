@@ -1,6 +1,6 @@
 <?php
 
-require_once '../config/config.php';
+require_once dirname(__FILE__, 2) . '/config/config.php';
 
 function db_connect() {
     try {
@@ -14,4 +14,14 @@ function db_connect() {
     }
 }
 
+function create_users_table() {}
+function create_events_table() {}
+function create_figthers_table() {}
+function create_logs_table() {}
+function create_comments_table() {}
+function create_captcha_table() {}
+
+
+function get_users() {}
+function get_user($id) {}
 ?>
