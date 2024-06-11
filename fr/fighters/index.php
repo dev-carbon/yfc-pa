@@ -1,7 +1,9 @@
 <?php include_once dirname(__DIR__) . '/components/header.php'; ?>
 
-<main>
-    <h1>Figthers</h1>
+<main class="main">
+    <div class="container">
+        <h1>Combatants</h1>
+    </div>
 </main>
 
 <?php include_once dirname(__DIR__) . '/components/footer.php'; ?>

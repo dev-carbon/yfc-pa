@@ -26,7 +26,7 @@ require_once dirname(__DIR__, 2) .  '/config/init.php';
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li>
-                            <a class="navbar-brand" href="#">
+                            <a class="navbar-brand" href="/">
                                 <img src="/assets/images/logo.png" alt="Logo" class="logo">
                             </a>
                         </li>
