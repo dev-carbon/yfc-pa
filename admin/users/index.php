@@ -26,21 +26,31 @@ $users = get_users();
                     <th scope="col">Nom</th>
                     <th scope="col">Email</th>
                     <th scope="col">Role</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <?php if ($users): ?>
-                    <?php foreach ($users as $user): ?>
+                <?php if ($users) : ?>
+                    <?php foreach ($users as $user) : ?>
                         <tr>
                             <th scope="row"><?= htmlspecialchars($user['id']) ?></th>
                             <td><?= htmlspecialchars($user['first_name']) ?></td>
                             <td><?= htmlspecialchars($user['last_name']) ?></td>
                             <td><?= htmlspecialchars($user['email']) ?></td>
                             <td><?= htmlspecialchars($user['role']) ?></td>
+                            <th>
+                                <form method="POST" action="/admin/users/delete/" class="d-inline-block">
+                                    <input type="hidden" name="id" value="<?= $user['id'] ?>">
+                                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                                </form>
+                                <a href="/admin/users/update?id=<?= $user['id'] ?>" class="btn btn-secondary btn-sm">Modifier</a>
+                            </th>
                         </tr>
                     <?php endforeach; ?>
-                <?php else: ?>
-                    <tr><td colspan="5">No users found</td></tr>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="5">No users found</td>
+                    </tr>
                 <?php endif; ?>
             </tbody>
         </table>

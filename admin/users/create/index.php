@@ -18,14 +18,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate inputs
     if ($firstName && $lastName && $email && $role) {
         try {
-            $stmt = $db->prepare("INSERT INTO users (first_name, last_name, email, role) VALUES (:first_name, :last_name, :email, :role)");
-            $stmt->execute([
-                ':first_name' => htmlspecialchars($firstName),
-                ':last_name' => htmlspecialchars($lastName),
-                ':email' => htmlspecialchars($email),
-                ':role' => htmlspecialchars($role),
-            ]);
-            $success_message = "User added successfully!";
+            // Check if user already exists
+            $checkStmt = $db->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+            $checkStmt->execute([':email' => $email]);
+            $userExists = $checkStmt->fetchColumn();
+
+            if ($userExists) {
+                $error_message = "Email déjà utilisée!";
+            } else {
+                // Insert new user
+                $stmt = $db->prepare("INSERT INTO users (first_name, last_name, email, role) VALUES (:first_name, :last_name, :email, :role)");
+                $stmt->execute([
+                    ':first_name' => htmlspecialchars($firstName),
+                    ':last_name' => htmlspecialchars($lastName),
+                    ':email' => htmlspecialchars($email),
+                    ':role' => htmlspecialchars($role),
+                ]);
+                $success_message = "Utilisateur ajouté!";
+            }
         } catch (PDOException $e) {
             $error_message = "Error: " . $e->getMessage();
         }
@@ -45,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <?php if ($success_message) : ?>
                 <div class="alert alert-success" role="alert">
-                    A simple danger alert—check it out!
+                    <?= $success_message ?>
                 </div>
             <?php endif; ?>
 
@@ -75,7 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                     <div class="mb-3">
                         <label for="role" class="form-label">Role</label>
-                        <input type="text" class="form-control" id="role" name="role" required>
+                        <select class="form-select" id="role" name="role" required>
+                            <option value=""></option>
+                            <option value="admin">Admin</option>
+                            <option value="user">Utilisateur</option>
+                        </select>
                     </div>
                     <a href="/admin/users/" type="submit" class="btn btn-secondary">Annuler</a>
                     <button type="submit" class="btn btn-primary">Ajouter</button>
