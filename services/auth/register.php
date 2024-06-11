@@ -1,9 +1,9 @@
 <?php
-require_once('../config.php');
-require_once('./mailing.php');
+// require_once('../config.php');
+// require_once('./mailing.php');
 
 // Vérification si le formulaire a été soumis
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Connexion à la base de données avec PDO
     try {

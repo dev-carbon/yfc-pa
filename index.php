@@ -1,7 +1,6 @@
 <?php include_once __DIR__ . '/fr/components/header.php'; ?>
 
 <main>
-
     <div class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
